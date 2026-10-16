@@ -1,6 +1,6 @@
 {
   "name": "simple-usage",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Context-window fill and plan rate limits (5h / 7d) on the line under the prompt",
   "types": "./types/index.d.ts",
   "author": {

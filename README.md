@@ -29,7 +29,7 @@ claude plugin install simple-usage@claude-simple-usage
 
 ## Use
 
-`/usage-band` shows or hides it. While it's hidden, the normal hint line comes back.
+`/usage-bar` shows or hides it. While it's hidden, the normal hint line comes back.
 
 ## Develop
 

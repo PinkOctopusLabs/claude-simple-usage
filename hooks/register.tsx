@@ -42,7 +42,7 @@ export const register: Register = on => {
   const warned = new Set<string>()
 
   on('session.start', async ($, e, next) => {
-    await $.command.register({ name: 'usage-band', description: 'Show or hide the usage band above the prompt' })
+    await $.command.register({ name: 'usage-bar', description: 'Show or hide the usage bar under the prompt' })
     const figures = await $.session.usage()
     await update($, usage, () => toUsage(figures))
 
@@ -64,10 +64,10 @@ export const register: Register = on => {
     return next(e)
   })
 
-  on('command.run', { command: 'usage-band' }, async $ => {
+  on('command.run', { command: 'usage-bar' }, async $ => {
     const hidden = await update($, isHidden, h => !h)
 
-    return { text: hidden ? 'Usage band hidden.' : 'Usage band shown.' }
+    return { text: hidden ? 'Usage bar hidden.' : 'Usage bar shown.' }
   })
 
   // Drawn in place of the hint line under the prompt: the engine's hint, then usage padded out
