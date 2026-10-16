@@ -31,6 +31,15 @@ claude plugin install simple-usage@claude-simple-usage
 
 `/usage-bar` shows or hides it. While it's hidden, the normal hint line comes back.
 
+## What it hooks
+
+- `session.start`: registers `/usage-bar` and reads the session's current usage figures.
+- `session.measure`: stores the latest context and rate-limit figures, and shows a one-time notice when a limit passes 90%. It only observes; the figures pass on unchanged.
+- `command.run` for `/usage-bar` only: toggles the line on or off. It answers that one command and doesn't see or change any other command.
+- `ui.render` for the hint line under the prompt: draws the hint text followed by the usage figures. While hidden, it leaves the engine's own hint line in place.
+
+It makes no network requests, reads or writes no files, and keeps its figures only for the current session.
+
 ## Develop
 
 ```

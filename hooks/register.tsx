@@ -1,10 +1,9 @@
-import { atom, read, update } from 'claude-code'
 import type { Register, SessionContextUsage, SessionCost, SessionRateLimit } from 'claude-code'
 
 import type { Usage } from '../types'
 
-const usage = atom({ plugin: 'simple-usage', key: 'usage' } as const, null)
-const isHidden = atom({ plugin: 'simple-usage', key: 'isHidden' } as const, false)
+const USAGE = { plugin: 'simple-usage', key: 'usage' } as const
+const IS_HIDDEN = { plugin: 'simple-usage', key: 'isHidden' } as const
 
 const LABELS: Record<string, string> = { five_hour: '5h', seven_day: '7d', spend_limit: 'spend' }
 const WARN_AT = 90
@@ -44,13 +43,13 @@ export const register: Register = on => {
   on('session.start', async ($, e, next) => {
     await $.command.register({ name: 'usage-bar', description: 'Show or hide the usage bar under the prompt' })
     const figures = await $.session.usage()
-    await update($, usage, () => toUsage(figures))
+    await $.state.set(USAGE, toUsage(figures))
 
     return next(e)
   })
 
   on('session.measure', async ($, e, next) => {
-    await update($, usage, () => toUsage(e))
+    await $.state.set(USAGE, toUsage(e))
 
     for (const limit of e.rateLimits) {
       if (limit.percentUsed >= WARN_AT && !warned.has(limit.kind)) {
@@ -64,8 +63,10 @@ export const register: Register = on => {
     return next(e)
   })
 
-  on('command.run', { command: 'usage-bar' }, async $ => {
-    const hidden = await update($, isHidden, h => !h)
+  on('command.run', { command: 'usage-bar' }, async ($) => {
+    const held = await $.state.get(IS_HIDDEN)
+    const hidden = !held.value
+    await $.state.set(IS_HIDDEN, hidden)
 
     return { text: hidden ? 'Usage bar hidden.' : 'Usage bar shown.' }
   })
@@ -73,9 +74,10 @@ export const register: Register = on => {
   // Drawn in place of the hint line under the prompt: the engine's hint, then usage padded out
   // to the right edge. The engine sizes this site to its content, so the padding is counted here.
   on('ui.render', { component: 'PromptHint' }, async ($, e, next) => {
-    const u = await read($, usage)
+    const { value: u } = await $.state.get(USAGE)
+    const { value: hidden } = await $.state.get(IS_HIDDEN)
 
-    if (u === null || (await read($, isHidden))) {
+    if (!u || hidden) {
       return next(e)
     }
 
