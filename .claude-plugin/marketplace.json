@@ -9,7 +9,7 @@
       "name": "simple-usage",
       "source": "./",
       "description": "Context-window fill and plan rate limits (5h / 7d) on the line under the prompt",
-      "version": "0.2.2"
+      "version": "0.2.3"
     }
   ]
 }

@@ -1,9 +1,13 @@
 {
   "name": "simple-usage",
-  "version": "0.2.2",
+  "version": "0.2.3",
   "description": "Context-window fill and plan rate limits (5h / 7d) on the line under the prompt",
   "author": {
     "name": "Pink Octopus Labs"
   },
-  "license": "MIT"
+  "license": "MIT",
+  "homepage": "https://github.com/PinkOctopusLabs/claude-simple-usage",
+  "repository": "https://github.com/PinkOctopusLabs/claude-simple-usage",
+  "documentationUrl": "https://github.com/PinkOctopusLabs/claude-simple-usage#readme",
+  "privacyPolicyUrl": "https://github.com/PinkOctopusLabs/claude-simple-usage/blob/main/PRIVACY.md"
 }

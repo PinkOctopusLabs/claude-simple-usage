@@ -48,6 +48,14 @@ claude plugin validate .       # check the manifest and hooks
 claude plugin test .           # run tests/
 ```
 
+## Support
+
+simple-usage is free and provided as-is, without support.
+
+## Privacy
+
+It collects nothing and makes no network requests. See [PRIVACY.md](PRIVACY.md).
+
 ## License
 
 MIT. See [LICENSE](LICENSE).
