@@ -1,6 +1,6 @@
 {
   "name": "simple-usage",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "description": "Context-window fill and plan rate limits (5h / 7d) on the line under the prompt",
   "author": {
     "name": "Pink Octopus Labs"

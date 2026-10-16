@@ -74,12 +74,15 @@ export const register: Register = on => {
   // Drawn in place of the hint line under the prompt: the engine's hint, then usage padded out
   // to the right edge. The engine sizes this site to its content, so the padding is counted here.
   on('ui.render', { component: 'PromptHint' }, async ($, e, next) => {
-    const { value: u } = await $.state.get(USAGE)
     const { value: hidden } = await $.state.get(IS_HIDDEN)
-
-    if (!u || hidden) {
+    if (hidden) {
       return next(e)
     }
+
+    // Nothing stored yet (drawn before session.start, or after /reload-plugins, which skips it):
+    // read the figures directly rather than waiting for the next measurement.
+    const { value: stored } = await $.state.get(USAGE)
+    const u = stored ?? toUsage(await $.session.usage())
 
     const { Box, Text } = $.ui.resolve(e)
     const now = await $.clock.now()
