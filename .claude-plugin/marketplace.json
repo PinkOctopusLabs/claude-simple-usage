@@ -1,0 +1,15 @@
+{
+  "name": "claude-simple-usage",
+  "description": "Claude Code mod showing context and rate-limit usage under the prompt",
+  "owner": {
+    "name": "Pink Octopus Labs"
+  },
+  "plugins": [
+    {
+      "name": "simple-usage",
+      "source": "./",
+      "description": "Context-window fill and plan rate limits (5h / 7d) on the line under the prompt",
+      "version": "0.1.0"
+    }
+  ]
+}
