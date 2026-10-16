@@ -16,7 +16,15 @@ Figures update after each turn and whenever a rate-limit window moves by a full 
 ## Install
 
 ```
-/plugin install simple-usage --marketplace PinkOctopusLabs/claude-simple-usage
+/plugin marketplace add PinkOctopusLabs/claude-simple-usage
+/plugin install simple-usage@claude-simple-usage
+```
+
+Or from a terminal:
+
+```
+claude plugin marketplace add PinkOctopusLabs/claude-simple-usage
+claude plugin install simple-usage@claude-simple-usage
 ```
 
 ## Use
